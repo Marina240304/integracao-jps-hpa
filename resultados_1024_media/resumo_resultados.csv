@@ -1,0 +1,5 @@
+﻿tamanho_mapa;densidade_nome;algoritmo;execucoes;sucessos;taxa_sucesso;tempo_medio_segundos;desvio_tempo_segundos;nos_expandidos_medios;custo_medio;passos_medios;portais_medios;jump_points_medios;nos_abstratos_medios
+1024;media;A*;1;1;1.0;3.26716759998817;0.0;292526.0;1627.1626970967704;1331.0;0.0;0.0;0.0
+1024;media;HPA*;1;1;1.0;1099.5935749000055;0.0;28741.0;1677.5403307326785;1417.0;32926.0;0.0;64082.0
+1024;media;HPA-JPS;1;1;1.0;1122.37131279998;0.0;27921.0;1677.5403307326783;1417.0;32926.0;11406028.0;64082.0
+1024;media;JPS;1;1;1.0;3.730891600018367;0.0;140848.0;1627.16269709677;1331.0;0.0;142554.0;0.0

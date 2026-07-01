@@ -1,0 +1,5 @@
+﻿algoritmo;tamanho_mapa;tamanho_cluster;densidade_nome;densidade_configurada;densidade_real;semente;numero_mapa;tentativa_geracao_mapa;repeticao;encontrado;tempo_segundos;nos_expandidos;custo_total;passos_caminho;posicoes_caminho;nos_expandidos_abstratos;quantidade_portais;jump_points;nos_grafo_abstrato;arestas_grafo_abstrato;erro
+A*;1024;16;alta;0.3;0.3003959655761719;104427;1;1;1;True;3.8139131999923848;380181;1775.4082963767175;1577;1578;0;0;0;0;0;
+JPS;1024;16;alta;0.3;0.3003959655761719;104427;1;1;1;True;3.444392900011735;168866;1775.4082963767173;1577;1578;0;0;170090;0;0;
+HPA*;1024;16;alta;0.3;0.3003959655761719;104427;1;1;1;True;1123.1407097000047;38738;1816.6976182580602;1639;1640;37351;34206;0;66177;373035;
+HPA-JPS;1024;16;alta;0.3;0.3003959655761719;104427;1;1;1;True;1631.9198446999944;37922;1816.6976182580602;1639;1640;37351;34206;12779412;66177;373035;

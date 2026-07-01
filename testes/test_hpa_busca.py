@@ -1,0 +1,120 @@
+from math import isclose, isinf, sqrt
+
+from src.grid import Grid
+from src.hpa_busca import buscar_hpa
+
+
+def calcular_custo_do_caminho(
+    caminho: list[tuple[int, int]],
+) -> float:
+    custo = 0.0
+
+    for atual, proxima in zip(
+        caminho,
+        caminho[1:],
+    ):
+        diferenca_linha = abs(
+            atual[0] - proxima[0]
+        )
+
+        diferenca_coluna = abs(
+            atual[1] - proxima[1]
+        )
+
+        if (
+            diferenca_linha == 1
+            and diferenca_coluna == 1
+        ):
+            custo += sqrt(2)
+        else:
+            custo += 1.0
+
+    return custo
+
+
+def test_hpa_encontra_caminho_entre_clusters() -> None:
+    matriz = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+    ]
+
+    grid = Grid.criar(matriz)
+
+    resultado = buscar_hpa(
+        grid=grid,
+        inicio=(0, 0),
+        destino=(5, 5),
+        tamanho_cluster=3,
+    )
+
+    assert resultado.encontrado is True
+
+    assert resultado.caminho[0] == (0, 0)
+    assert resultado.caminho[-1] == (5, 5)
+
+    assert resultado.quantidade_portais == 4
+    assert resultado.tamanho_grafo_abstrato >= 8
+    assert resultado.nos_expandidos > 0
+
+    custo_caminho = calcular_custo_do_caminho(
+        resultado.caminho
+    )
+
+    assert isclose(
+        resultado.custo,
+        custo_caminho,
+    )
+
+
+def test_hpa_encontra_caminho_no_mesmo_cluster() -> None:
+    matriz = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+    ]
+
+    grid = Grid.criar(matriz)
+
+    resultado = buscar_hpa(
+        grid=grid,
+        inicio=(0, 0),
+        destino=(2, 2),
+        tamanho_cluster=3,
+    )
+
+    assert resultado.encontrado is True
+    assert resultado.caminho[0] == (0, 0)
+    assert resultado.caminho[-1] == (2, 2)
+
+    assert isclose(
+        resultado.custo,
+        2 * sqrt(2),
+    )
+
+
+def test_hpa_falha_com_inicio_bloqueado() -> None:
+    matriz = [
+        [1, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+    ]
+
+    grid = Grid.criar(matriz)
+
+    resultado = buscar_hpa(
+        grid=grid,
+        inicio=(0, 0),
+        destino=(2, 2),
+        tamanho_cluster=3,
+    )
+
+    assert resultado.encontrado is False
+    assert resultado.caminho == []
+    assert isinf(resultado.custo)
